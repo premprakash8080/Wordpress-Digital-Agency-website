@@ -108,7 +108,7 @@ class Form_Data
                         }
 
                         if ($value['widgetType'] == 'mf-textarea') {
-                            echo "<td><pre style='font:inherit;margin:0;'>" . esc_html(isset($form_data[$key]) ? $form_data[$key] : '') . "</pre></td>";
+                            echo "<td>" . wp_kses( isset($form_data[$key]) ? nl2br( $form_data[$key] ) : '', [ 'br' => [] ]) . "</td>";
                         }
 
                         if ($value['widgetType'] == 'mf-simple-repeater') {
@@ -201,15 +201,15 @@ class Form_Data
                             echo "<td>" . esc_html((array_key_exists($key, $form_data) ? ((is_array($form_data[$key])) ? implode(', ', $form_data[$key]) : $form_data[$key]) : ' ')) . "</td>";
                         }
 
-                        if ($value['widgetType'] == 'mf-textarea') {
+                        if (isset($value['widgetType']) && $value['widgetType'] == 'mf-textarea') {
                             echo "<td><pre style='font:inherit;margin:0;'>" . esc_html(isset($form_data[$key]) ? $form_data[$key] : '') . "</pre></td>";
                         }
 
-                        if ($value['widgetType'] == 'mf-signature') {
+                        if (isset($value['widgetType']) && $value['widgetType'] == 'mf-signature') {
                             echo "<td><img width='200' height='100' src='" . esc_url(isset($form_data[$key]) ? $form_data[$key] : '') . "'></td>";
                         }
 
-                        if ($value['widgetType'] == 'mf-simple-repeater') {
+                        if (isset($value['widgetType']) && $value['widgetType'] == 'mf-simple-repeater') {
                             echo "<td>";
                             $repeater_data = ((array_key_exists($key, $form_data)) ? $form_data[$key] : []);
                             foreach ($repeater_data as $key => $value) {
@@ -223,7 +223,7 @@ class Form_Data
                         /**
                          * Credit Card form data entries
                          */
-                        if ($value['widgetType'] == 'mf-credit-card') {
+                        if (isset($value['widgetType']) && $value['widgetType'] == 'mf-credit-card') {
                             echo "<td><strong>". esc_html__('Number:', 'metform') ."</strong> " . esc_html(isset($form_data[$key]) ? $form_data[$key] : '') . "</br>";
                             if (isset($form_data[$key . '--type'])) {
                                 $type = $form_data[$key . '--type'];

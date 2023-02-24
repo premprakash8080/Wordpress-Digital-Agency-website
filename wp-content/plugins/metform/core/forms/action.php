@@ -171,7 +171,12 @@ Class Action {
 	 * @return array|null
 	 */
 	public function get_all_data($post_id) {
-        
+
+		// this hide all the response after form submission 
+        // if(!current_user_can('manage_options')) {
+		// 	return;
+		// }
+
 		$post = get_post($post_id);
 
 		if(!is_object($post)) {

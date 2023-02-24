@@ -31,7 +31,7 @@ class Export {
 
             $form_entry = get_post_meta( $entry->post_id, 'metform_entries__form_data', true );
             $form_entry = (is_array($form_entry) ? $form_entry : []);
-            $file_entry = get_post_meta( $entry->post_id, 'metform_entries__file_upload', true );
+            $file_entry = get_post_meta( $entry->post_id, 'metform_entries__file_upload_new', true );
             $file_entry = (is_array($file_entry) ? $file_entry : []);
 
             $entry_data = array_merge($form_entry, $file_entry);
@@ -46,6 +46,9 @@ class Export {
 
 	            if($value->widgetType == 'mf-file-upload'){
                     $entry_modify[$header_key] = (isset($entry_data[$key]) ? ((isset($entry_data[$key]['url'])) ? $entry_data[$key]['url'] : ' ' ) : ' ' );
+                    for($index = 0; $index < count($entry_data[$key]); $index++){
+                        $entry_modify[$header_key] .= ($entry_data[$key][$index]['url']." \n");
+                    }
                 }else if($value->widgetType == 'mf-simple-repeater'){
                     $data_string = '';
                     if(is_array($entry_data[$key])){

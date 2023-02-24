@@ -21,6 +21,7 @@ class Action
 
     private $fields;
     private $entry_id;
+    private $entry_serial_no;
     private $form_id;
     private $form_data;
     private $form_settings;
@@ -37,6 +38,7 @@ class Action
     {
         $this->response = (object) [
             'status' => 0,
+            'store_entries' => 1,
             'error' => [
                 esc_html__('Some thing went wrong.', 'metform'),
             ],
@@ -59,6 +61,16 @@ class Action
     {
 
         $this->fields = $this->get_fields($form_id);
+        if(isset($this->fields['mf-recaptcha']) && !isset($form_data['g-recaptcha-response']))  {
+            $this->response->status = 0;
+            $this->response->error[] = esc_html__('Unauthorized submission.', 'metform');
+            return $this->response;
+        }
+        if(isset($this->fields['mf-simple-captcha']) && !isset($form_data['mf-captcha-challenge'])){
+            $this->response->status = 0;
+            $this->response->error[] = esc_html__('Unauthorized submission.', 'metform');
+            return $this->response;
+        }
         if(count(File_Data_Validation::validate($this->fields, $file_data)) > 0){
             $this->response->status = 0;
             $this->response->error[] = esc_html__('You are trying to upload wrong file!', 'metform');
@@ -390,8 +402,13 @@ class Action
             $this->entry_id = wp_insert_post($defaults);
 
             update_post_meta($this->entry_id, 'mf_page_id', $page_id);
-
-            $all_data = array_merge($all_data, ['mf_id' => $this->entry_id, 'mf_form_name' => $this->title]);
+            $entry_serial_no = get_option('metform_last_entry_serial_no');
+            $all_data = array_merge($all_data, ['mf_id' => ++$entry_serial_no, 'mf_form_name' => $this->title]);
+            update_option('metform_last_entry_serial_no', $entry_serial_no);
+            update_post_meta($this->entry_id, 'metform_entries_serial_no', $entry_serial_no);
+        }else{
+            $this->response->status = '1';
+            $this->response->store_entries = '0';
         }
 
         Metform_Shortcode::instance()->set_values($all_data);

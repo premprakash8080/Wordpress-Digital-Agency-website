@@ -4,6 +4,7 @@ namespace MetForm\Core\Entries;
 
 defined('ABSPATH') || exit;
 
+#[\AllowDynamicProperties]
 class Meta_Data
 {
 
@@ -65,9 +66,13 @@ class Meta_Data
                     <td colspan='2'><strong><?php esc_html_e('Entry ID', 'metform'); ?></strong></td>
                 </tr>
                 <tr class='mf-data-value'>
-                    <td><?php echo esc_attr($post->ID); ?></td>
+                    <td>
+                        <?php
+                            $metform_entries_serial_no = get_post_meta($post->ID, 'metform_entries_serial_no', true);
+                            echo esc_html(isset($metform_entries_serial_no)? $metform_entries_serial_no : '');
+                        ?>
+                    </td>
                 </tr>
-
                 </tbody>
             </table>
         </div>
