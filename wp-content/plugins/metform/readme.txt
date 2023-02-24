@@ -3,7 +3,7 @@ Contributors: xpeedstudio, ataurr, emranio
 Tags: Form builder, contact form, Elementor contact form, contact form builder, elementor forms builder, drag and drop builder
 Requires at least: 4.8
 Tested up to: 6.1
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -299,6 +299,22 @@ Connect with Gmail, Slack, Mailchimp, and many more. It helps to post Trello car
 **Migrations are coming soon in these forms. Contact Form 7, Caldera Forms, Ninja Forms, Gravity Forms, fluent forms, wp forms, Forminator & Formidable Form Builder, Everest Forms**
 
 == Changelog == 
+
+Version 3.2.2 // 2023-02-21
+Added: New notice if permalink saved as plain to change permalink to postname.
+Improved: Entry ID auto increement by one and will be serialized.
+Improved: Security in google recaptcha and simple recaptcha field. 
+Improved: Demo templates.
+Improved: GDPR consent message from on to accepted.
+Fixed: Simple repeater issue.
+Fixed: Redirection after submission was not working.
+Fixed: All fields gone blank when recaptch was wrong.
+Fixed: The compatibility issue with ElementsKit sticky option.
+Fixed: Security permission issue for REST API endpoint.
+Fixed: field validation message color for some fields.
+Fixed: Layout compatibility issue in IOS devices.
+Fixed: Hubspot integration form feilds mapping settings.
+Fixed: Big commented entries breaking the design.
 
 Version 3.2.1 // 2023-01-10
 Fixed: Compatibility with Elementor 3.10.0. 

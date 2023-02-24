@@ -77,7 +77,7 @@ Class MetForm_Input_Gdpr_Consent extends Widget_Base{
                 'label' => esc_html__( 'Checkbox Option Text', 'metform' ),
                 'type' => Controls_Manager::TEXTAREA,
                 'rows' => 10,
-                'default' => \MetForm\Utils\Util::kses( 'Agree on our <a href="#">terms and condition</a> for using your submitted data?' , 'metform' ),
+                'default' => \MetForm\Utils\Util::kses( "Agree on our <a href='#'>terms and condition</a> for using your submitted data?" , 'metform' ),
 				'label_block' => true,
 				'description' => esc_html__('Select option name that will be show to user.', 'metform'),
             ]
